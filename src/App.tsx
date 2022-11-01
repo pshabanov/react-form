@@ -1,10 +1,9 @@
-import './App.css'
-import {Routes, Route, Link} from 'react-router-dom'
-import Step1 from "./pages/Step1";
+import {Routes, Route} from 'react-router-dom'
+import { Step1 } from "./pages/Step1";
 import Step2 from "./pages/Step2";
 import Step3 from "./pages/Step3";
 import Step4 from "./pages/Step4";
-import Header from "./layouts/Header";
+import { Header } from "./components/Header";
 
 
 function App() {
