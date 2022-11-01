@@ -34,7 +34,7 @@ export const Step1 = () => {
             resolver: yupResolver(schema)
         });
 
-    const onsubmit = (data: IStep1) => {
+    const onSubmit = (data: IStep1):void => {
         history('/step2', { replace: true })
         console.log(data)
     }
@@ -43,7 +43,7 @@ export const Step1 = () => {
 
     return (<MainContainer>
         <Typography component="h2" variant="h5">Step 1</Typography>
-        <Form onSubmit={handleSubmit(onsubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             {/*<input type="text" {...name.bind}/>{name.value}*/}
             <Input
                 {...register('firstName')}
