@@ -8,6 +8,7 @@ import {useForm} from "react-hook-form";
 import {PrimaryButton} from "../components/PrimaryButton";
 import * as yup from 'yup';
 import {yupResolver} from "@hookform/resolvers/yup";
+import {useData} from "../data/DataContext";
 
 interface IStep1 {
     firstName: string
@@ -27,15 +28,17 @@ const schema = yup.object().shape({
 export const Step1 = () => {
 
     const history = useNavigate()
-
+    const { data, setValues } = useData()
     const {register, handleSubmit, formState: {errors}} = useForm(
         {
+            defaultValues: { firstName: data.firstName, secondName: data.secondName},
             mode: 'onBlur',
             resolver: yupResolver(schema)
         });
 
     const onSubmit = (data: IStep1):void => {
         history('/step2', { replace: true })
+        setValues(data)
         console.log(data)
     }
     // const name = UseInput('')

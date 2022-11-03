@@ -10,6 +10,7 @@ import {PrimaryButton} from "../components/PrimaryButton";
 import * as yup from "yup";
 import Checkbox from "@material-ui/core/Checkbox";
 import {parsePhoneNumberFromString} from "libphonenumber-js";
+import {useData} from "../data/DataContext";
 
 interface IStep2 {
     email: string,
@@ -36,8 +37,10 @@ const normalizePhoneNumber = (value: string) => {
 export const Step2 = () => {
 
     const history = useNavigate()
+    const { data, setValues } = useData()
     const { register, handleSubmit, formState: {errors}, watch } = useForm(
         {
+            defaultValues: {email: data.email, hasPhone: data.hasPhone, phoneNumber: data.phoneNumber},
             mode: 'onBlur',
             resolver: yupResolver(schema)
         });
@@ -46,6 +49,7 @@ export const Step2 = () => {
 
     const onSubmit = (data: IStep2) => {
         history('/step3', { replace: true })
+        setValues(data)
         console.log(data)
     }
 
@@ -65,6 +69,8 @@ export const Step2 = () => {
             />
             <FormControlLabel control={
                 <Checkbox
+                    defaultValue={data.hasPhone}
+                    defaultChecked={data.hasPhone}
                     name="hasPhone"
                     {...register('hasPhone')}
                     color="primary" />

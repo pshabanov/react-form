@@ -12,7 +12,7 @@ export const DataProvider = ({children}:any) => {
             ...values
         }))
     }
-    return <DataContext.Provider value={{data, setValues}}>{children}</DataContext.Provider>
+    return <DataContext.Provider value={{ data, setValues }}>{children}</DataContext.Provider>
 }
 
 export const useData = () => useContext(DataContext)
