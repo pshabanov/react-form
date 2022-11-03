@@ -9,6 +9,7 @@ import {useNavigate} from "react-router-dom";
 import {PrimaryButton} from "../components/PrimaryButton";
 import * as yup from "yup";
 import Checkbox from "@material-ui/core/Checkbox";
+import {parsePhoneNumberFromString} from "libphonenumber-js";
 
 interface IStep2 {
     email: string,
@@ -21,6 +22,15 @@ const schema = yup.object().shape({
         .email('Email не соответсвует формату')
         .required("Email обязателен"),
 })
+
+const normalizePhoneNumber = (value: string) => {
+    const phoneNumber = parsePhoneNumberFromString(value)
+    if (!phoneNumber)
+        return value
+    return (
+        phoneNumber.formatInternational()
+    )
+}
 
 
 export const Step2 = () => {
@@ -41,7 +51,8 @@ export const Step2 = () => {
 
     return (<MainContainer>
         <Typography component="h2" variant="h5">Step 2</Typography>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form
+            onSubmit={handleSubmit(onSubmit)}>
             <Input
                 {...register('email')}
                 id="email"
@@ -53,7 +64,10 @@ export const Step2 = () => {
                 helperText={errors?.email?.message}
             />
             <FormControlLabel control={
-                <Checkbox name="hasPhone" inputRef={register} color="primary" />
+                <Checkbox
+                    name="hasPhone"
+                    {...register('hasPhone')}
+                    color="primary" />
             } label="У вас есть телефон"/>
             {
                 hasPhone && (
@@ -63,6 +77,11 @@ export const Step2 = () => {
                         id="phoneNumber"
                         name="phoneNumber"
                         label="Phone number"
+                        onChange={(event: Event)=>{
+                            const { target } = event
+                            if (target)
+                                target.value = normalizePhoneNumber(target.value)
+                        }}
                     />
                 )
             }
