@@ -1,11 +1,16 @@
-import React from "react";
+import React, {FC} from "react";
 import {Controller} from "react-hook-form";
 import Dropzone from "react-dropzone";
 import {List, ListItem, ListItemIcon, ListItemText, Paper} from "@material-ui/core";
 import {CloudUpload, InsertDriveFile} from "@material-ui/icons";
+import {Control} from "react-hook-form/dist/types/form";
 
+interface IFileInputProps {
+    control: Control
+    name: string
+}
 
-export const FileInput = ({control, name}) => {
+export const FileInput:FC<IFileInputProps> = ({control, name}) => {
     return (
         <Controller
             control={control}
@@ -26,14 +31,12 @@ export const FileInput = ({control, name}) => {
                     </Dropzone>
                     <List>
                         {
-                            value.map((f, index) => (
+                            value.map((f:File, index:number) => (
                                 <ListItem key={index}>
                                     <ListItemIcon>
                                         <InsertDriveFile/>
                                     </ListItemIcon>
-                                    <ListItemText primary={f.name} secondary={f.size}>
-
-                                    </ListItemText>
+                                    <ListItemText primary={f.name} secondary={f.size} />
                                 </ListItem>
                             ))
                         }

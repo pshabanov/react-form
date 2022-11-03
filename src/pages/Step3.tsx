@@ -6,7 +6,7 @@ import {FileInput} from "../components/FileInput";
 import {useForm} from "react-hook-form";
 
 export const Step3 = () => {
-    const {control } = useForm()
+    const { control } = useForm()
 
     return <MainContainer>
         <Typography component="h2" variant="h5">Step 3</Typography>

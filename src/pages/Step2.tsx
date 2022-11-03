@@ -36,7 +36,7 @@ const normalizePhoneNumber = (value: string) => {
 export const Step2 = () => {
 
     const history = useNavigate()
-    const {register, handleSubmit, formState: {errors}, watch} = useForm(
+    const { register, handleSubmit, formState: {errors}, watch } = useForm(
         {
             mode: 'onBlur',
             resolver: yupResolver(schema)
