@@ -10,7 +10,7 @@ interface IFileInputProps {
     name: string
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         backgroundColor: '#eee',
         textAlign: 'center',
